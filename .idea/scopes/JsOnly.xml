@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="JsOnly" pattern="file[systeminformation-requestlistener]:*.js&amp;&amp;!file:.eslintrc.js" />
+</component>

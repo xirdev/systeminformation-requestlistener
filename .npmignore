@@ -1,0 +1,8 @@
+# IDE directory
+.idea/
+
+# git files
+.git*
+
+# eslint files
+.eslint*

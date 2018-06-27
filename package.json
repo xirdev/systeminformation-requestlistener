@@ -1,0 +1,17 @@
+{
+  "name": "systeminformation-requestlistener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "main.js",
+  "author": "Nicholas Schell <nschell@gmail.com>",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "esm": "^3.0.55",
+    "moment": "^2.22.2",
+    "systeminformation": "^3.42.0"
+  }
+}
