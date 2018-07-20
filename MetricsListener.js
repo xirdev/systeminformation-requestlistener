@@ -164,6 +164,16 @@ export default class MetricsListener {
 
       let urlObj = urlParse(req.url);
 
+      if (urlObj.pathname !== this.apiPath && !urlObj.pathname.startsWith(`${this.apiPath}/`)) {
+        // we won't be handling this request at all
+        // but we'll still be counting requests
+        this.requestCount++;
+        return;
+      }
+
+      // claim ownership of request ASAP, downstream requestListeners will know to ignore
+      req.requestHandled = true;
+
       switch (urlObj.pathname) {
 
         case `${this.apiPath}/health`:
@@ -220,6 +230,9 @@ export default class MetricsListener {
         default:
           // ignore health and metric queries for request count
           this.requestCount++;
+          // because we are taking full responsibility of handling request, we will return 404
+          res.statusCode = 404;
+          res.end();
           break;
       }
 
