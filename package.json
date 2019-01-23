@@ -10,8 +10,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "esm": "^3.0.55",
-    "moment": "^2.22.2",
-    "systeminformation": "^3.42.0"
+    "esm": "^3.1.1",
+    "moment": "^2.24.0",
+    "systeminformation": "^3.54.0"
   }
 }
