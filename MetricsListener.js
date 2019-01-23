@@ -227,6 +227,44 @@ export default class MetricsListener {
           }
           break;
 
+        case `${this.apiPath}/all`:
+          SystemInformation.mem()
+            .then((memStats) => {
+              memStats['dateCaptured'] = Moment.utc().unix();
+
+              if (this.lastCpuError || this.lastNetworkError) {
+                let errors = {};
+                if (this.lastCpuError) {
+                  errors.cpu = this.lastCpuError;
+                }
+                if (this.lastNetworkError) {
+                  errors.network = this.lastNetworkError;
+                }
+                errorResponse(res, errors);
+                return;
+              }
+
+              let data = {
+                cpu: this.lastCpuData,
+                memory: memStats,
+                network: this.lastNetworkData
+              };
+              successResponse(res, data);
+            })
+            .catch((error) => {
+              let errors = {
+                memory: error
+              };
+              if (this.lastCpuError) {
+                errors.cpu = this.lastCpuError;
+              }
+              if (this.lastNetworkError) {
+                errors.network = this.lastNetworkError;
+              }
+              errorResponse(res, errors);
+            });
+          break;
+
         default:
           // ignore health and metric queries for request count
           this.requestCount++;
